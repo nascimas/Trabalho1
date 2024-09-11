@@ -1,6 +1,6 @@
 package com.Unisc.TC.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -18,7 +18,7 @@ public class Reuniao {
     private Integer id;
 
     private String descricao;
-    private Date dataR;
+    private LocalDate dataR;
 
     @Lob
     private byte[] arquivos;
@@ -27,12 +27,11 @@ public class Reuniao {
     @JoinColumn(name = "tc_id")
     private TrabalhoDeConclusao tc;
 
-    
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -44,11 +43,11 @@ public class Reuniao {
         this.descricao = descricao;
     }
 
-    public Date getDataR() {
+    public LocalDate getDataR() {
         return dataR;
     }
 
-    public void setDataR(Date dataR) {
+    public void setDataR(LocalDate dataR) {
         this.dataR = dataR;
     }
 

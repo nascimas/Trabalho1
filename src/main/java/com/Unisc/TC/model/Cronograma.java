@@ -1,6 +1,6 @@
 package com.Unisc.TC.model;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import com.Unisc.TC.enums.Etapa;
 
@@ -20,7 +20,7 @@ public class Cronograma {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Date entrega;  // Alterado para LocalDate
+    private LocalDate entrega;  // Usar LocalDate ao invés de java.sql.Date
 
     @Enumerated(EnumType.STRING)
     private Etapa etapa;
@@ -29,20 +29,19 @@ public class Cronograma {
     @JoinColumn(name = "cod_id")
     private Professor cod;
 
-    // Getters e Setters
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Date getEntrega() {
+    public LocalDate getEntrega() {
         return entrega;
     }
 
-    public void setEntrega(Date entrega) {
+    public void setEntrega(LocalDate entrega) {
         this.entrega = entrega;
     }
 

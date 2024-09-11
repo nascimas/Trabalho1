@@ -19,7 +19,7 @@ public class Nota {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer nota;  // Alterado para Integer
+    private Integer nota;
 
     @Enumerated(EnumType.STRING)
     private Criterio criterio;
@@ -35,20 +35,19 @@ public class Nota {
     @JoinColumn(name = "tc_id")
     private TrabalhoDeConclusao tc;
 
-    // Getters e Setters
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public int getNota() {
+    public Integer getNota() {
         return nota;
     }
 
-    public void setNota(int nota) {
+    public void setNota(Integer nota) {
         this.nota = nota;
     }
 
