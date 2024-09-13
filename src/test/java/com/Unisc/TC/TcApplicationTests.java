@@ -3,11 +3,12 @@ package com.Unisc.TC;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-@SpringBootTest
-class TcApplicationTests {
+import com.Unisc.TC.Main.TcApplication;
 
-	@Test
-	void contextLoads() {
-	}
+@SpringBootTest(classes = TcApplication.class)
+public class TcApplicationTests {
 
+    @Test
+    void contextLoads() {
+    }
 }
