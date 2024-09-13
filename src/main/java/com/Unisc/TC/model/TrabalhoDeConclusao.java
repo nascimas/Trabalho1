@@ -18,6 +18,7 @@ public class TrabalhoDeConclusao {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orientador_id")
+    
     private Professor orientador;
 
     public Integer getId() {

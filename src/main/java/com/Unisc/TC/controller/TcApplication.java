@@ -1,4 +1,4 @@
-package com.Unisc.TC.Main;
+package com.Unisc.TC.controller;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

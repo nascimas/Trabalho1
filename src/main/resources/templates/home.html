@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Gerenciamento de Trabalhos de Conclusão</title>
+    <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Trabalhos de Conclusão</h1>
+
+        <!-- Formulário para adicionar novo trabalho -->
+        <h2>Adicionar Novo Trabalho</h2>
+        <form th:action="@{/trabalhos}" th:object="${trabalho}" method="post">
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo" th:field="*{titulo}" required />
+
+            <label for="orientador">Orientador:</label>
+            <select id="orientador" th:field="*{orientador.id}" required>
+                <option value="">Selecione um Professor</option>
+                <option th:each="professor : ${professores}" th:value="${professor.id}" th:text="${professor.nome}">
+                    Selecionar Professor</option>
+            </select>
+
+            <button type="submit">Salvar Trabalho</button>
+        </form>
+
+        <!-- Lista de trabalhos -->
+        <h2>Lista de Trabalhos</h2>
+        <ul>
+            <li th:each="trabalho : ${trabalhos}">
+                <span th:text="${trabalho.titulo}"></span> - 
+                <span th:text="${trabalho.orientador.nome}"></span>
+                <div>
+                    <a th:href="@{/trabalhos/edit/{id}(id=${trabalho.id})}">[Editar]</a>
+                    <a th:href="@{/trabalhos/delete/{id}(id=${trabalho.id})}">[Excluir]</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</body>
+
+</html>
