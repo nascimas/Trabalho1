@@ -1,11 +1,12 @@
 package com.Unisc.TC.controller;
 
-import com.Unisc.TC.model.Usuario;
-import com.Unisc.TC.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.Unisc.TC.model.Usuario;
+import com.Unisc.TC.repository.UsuarioRepository;
 
 @Controller
 public class UsuarioController {
