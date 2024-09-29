@@ -1,8 +1,10 @@
-package com.Unisc.TC.controller;
+package com.Unisc.TC.service;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.Unisc.TC.model.Aluno;
 import com.Unisc.TC.repository.AlunoRepository;
 
