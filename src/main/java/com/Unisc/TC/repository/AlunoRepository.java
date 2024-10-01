@@ -6,4 +6,3 @@ import com.Unisc.TC.model.Aluno;
 
 public interface AlunoRepository extends JpaRepository<Aluno, Integer> {
 }
-

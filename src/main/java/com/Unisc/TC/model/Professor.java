@@ -17,8 +17,8 @@ public class Professor {
     private String nome;
     private boolean isCod;
 
-    @OneToMany(mappedBy = "orientador")  // Relacionamento bidirecional
-    private List<TrabalhoDeConclusao> trabalhos;  // Um professor pode ter vários trabalhos
+    @OneToMany(mappedBy = "orientador") // Relacionamento bidirecional
+    private List<TrabalhoDeConclusao> trabalhos; // Um professor pode ter vários trabalhos
 
     public Integer getId() {
         return id;

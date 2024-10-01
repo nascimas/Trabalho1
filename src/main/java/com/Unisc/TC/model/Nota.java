@@ -1,40 +1,36 @@
 package com.Unisc.TC.model;
 
-import com.Unisc.TC.enums.Criterio;
-import com.Unisc.TC.enums.Etapa;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Nota {
+    private double valor;
+    private String criterio;
+    private String etapa;
+
+    @ManyToOne
+    private Professor professor;
+
+    public double getValor() {
+        return valor;
+    }
+
+    public void setValor(double valor) {
+        this.valor = valor;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Integer nota;
+    @ManyToOne
+    private TrabalhoDeConclusao trabalho;
 
-    @Enumerated(EnumType.STRING)
-    private Criterio criterio;
-
-    @Enumerated(EnumType.STRING)
-    private Etapa etapa;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "professor_id")
-    private Professor professor;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tc_id")
-    private TrabalhoDeConclusao tc;
-
+    // Getters e Setters para id e trabalho
     public Integer getId() {
         return id;
     }
@@ -43,30 +39,15 @@ public class Nota {
         this.id = id;
     }
 
-    public Integer getNota() {
-        return nota;
+    public TrabalhoDeConclusao getTrabalho() {
+        return trabalho;
     }
 
-    public void setNota(Integer nota) {
-        this.nota = nota;
+    public void setTrabalho(TrabalhoDeConclusao trabalho) {
+        this.trabalho = trabalho;
     }
 
-    public Criterio getCriterio() {
-        return criterio;
-    }
-
-    public void setCriterio(Criterio criterio) {
-        this.criterio = criterio;
-    }
-
-    public Etapa getEtapa() {
-        return etapa;
-    }
-
-    public void setEtapa(Etapa etapa) {
-        this.etapa = etapa;
-    }
-
+    // Novo Getter e Setter para Professor
     public Professor getProfessor() {
         return professor;
     }
@@ -75,11 +56,21 @@ public class Nota {
         this.professor = professor;
     }
 
-    public TrabalhoDeConclusao getTc() {
-        return tc;
+    // Novo Getter e Setter para Criterio
+    public String getCriterio() {
+        return criterio;
     }
 
-    public void setTc(TrabalhoDeConclusao tc) {
-        this.tc = tc;
+    public void setCriterio(String criterio) {
+        this.criterio = criterio;
+    }
+
+    // Novo Getter e Setter para Etapa
+    public String getEtapa() {
+        return etapa;
+    }
+
+    public void setEtapa(String etapa) {
+        this.etapa = etapa;
     }
 }
