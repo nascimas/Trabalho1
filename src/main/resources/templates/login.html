@@ -1,23 +1,43 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-</head>
-<body>
-    <h2>Login</h2>
-    <form action="/login" method="post">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required><br>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TC</title>
+    <link rel="stylesheet" href="/static/login.css" />
+    <script type="text/javascript" src="/js/validation.js" defer></script>
+    <script
+      src="https://kit.fontawesome.com/cafbbe9ae2.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="form-box">
+        <h1 id="tittle">Login</h1>
+        <form id="form">
+          <div class="input-group">
+            <div class="input-field" id="nameField" style="position: relative">
+              <i class="fa-solid fa-user"></i>
+              <input type="text" placeholder="Matrícula" id="matricula-input" />
+              <span class="required-asterisk">*</span>
+              <span class="error-message" id="matricula-error"></span>
+            </div>
 
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required><br>
+            <div class="input-field" style="position: relative">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" placeholder="Senha" id="password-input" />
+              <span class="required-asterisk">*</span>
+              <span class="error-message" id="password-error"></span>
+            </div>
 
-        <button type="submit">Entrar</button>
-    </form>
-
-    <!-- Exibe erro, se houver -->
-    <p style="color: red;">[[${erro}]]</p>
-</body>
+            <p><a href="forgotpassword.html">Esqueci minha senha!</a></p>
+          </div>
+          <div class="btn-field">
+            <button type="submit" id="signinBtn" class="disable">Entrar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>
