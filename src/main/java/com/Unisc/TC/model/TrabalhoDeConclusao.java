@@ -10,6 +10,16 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class TrabalhoDeConclusao {
+    private String trabalho;
+
+    public String getTrabalho() {
+        return trabalho;
+    }
+
+    public void setTrabalho(String trabalho) {
+        this.trabalho = trabalho;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -18,9 +28,9 @@ public class TrabalhoDeConclusao {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orientador_id")
-    
     private Professor orientador;
 
+    // Getters e Setters para id, titulo e orientador
     public Integer getId() {
         return id;
     }

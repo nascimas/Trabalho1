@@ -1,14 +1,9 @@
 package com.Unisc.TC.model;
 
-import java.time.LocalDate;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 
 @Entity
@@ -16,23 +11,37 @@ public class Reuniao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    private String data;
+    private String local;
     private String descricao;
-    private LocalDate dataR;
+    private String arquivos;
 
-    @Lob
-    private byte[] arquivos;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "tc_id")
+    @ManyToOne
     private TrabalhoDeConclusao tc;
 
+    // Getters e Setters
     public Integer getId() {
         return id;
     }
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public String getLocal() {
+        return local;
+    }
+
+    public void setLocal(String local) {
+        this.local = local;
     }
 
     public String getDescricao() {
@@ -43,19 +52,11 @@ public class Reuniao {
         this.descricao = descricao;
     }
 
-    public LocalDate getDataR() {
-        return dataR;
-    }
-
-    public void setDataR(LocalDate dataR) {
-        this.dataR = dataR;
-    }
-
-    public byte[] getArquivos() {
+    public String getArquivos() {
         return arquivos;
     }
 
-    public void setArquivos(byte[] arquivos) {
+    public void setArquivos(String arquivos) {
         this.arquivos = arquivos;
     }
 

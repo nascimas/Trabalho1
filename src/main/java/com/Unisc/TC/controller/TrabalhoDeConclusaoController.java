@@ -3,65 +3,75 @@ package com.Unisc.TC.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import com.Unisc.TC.model.TrabalhoDeConclusao;
 import com.Unisc.TC.repository.TrabalhoDeConclusaoRepository;
+import com.Unisc.TC.model.Professor;
+import com.Unisc.TC.repository.ProfessorRepository;
 
-@RestController
-@RequestMapping("/api/trabalhos")
+@Controller
+@RequestMapping("/trabalhos")
 public class TrabalhoDeConclusaoController {
 
     @Autowired
     private TrabalhoDeConclusaoRepository trabalhoRepository;
 
-    // Get all Trabalhos
+    @Autowired
+    private ProfessorRepository professorRepository;
+
+    // Exibe a lista de trabalhos e o formulário para adicionar novo trabalho
     @GetMapping
-    public List<TrabalhoDeConclusao> getAllTrabalhos() {
-        return trabalhoRepository.findAll();
+    public String showTrabalhosForm(Model model) {
+        List<Professor> professores = professorRepository.findAll();
+        if (professores.isEmpty()) {
+            // Adicione professores genéricos se não houver nenhum
+            professores = professorRepository.findAll(); // Recarrega a lista de professores
+        }
+
+        model.addAttribute("trabalhos", trabalhoRepository.findAll());
+        model.addAttribute("trabalho", new TrabalhoDeConclusao());
+        model.addAttribute("professores", professores);
+        return "home"; // Certifique-se de que há um arquivo home.html no diretório de templates
     }
 
-    // Get a single Trabalho by ID
-    @GetMapping("/{id}")
-    public ResponseEntity<TrabalhoDeConclusao> getTrabalhoById(@PathVariable Integer id) {
-        return trabalhoRepository.findById(id)
-                .map(trabalho -> ResponseEntity.ok().body(trabalho))
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    // Create a new Trabalho
+    // Salva o novo trabalho
     @PostMapping
-    public TrabalhoDeConclusao createTrabalho(@RequestBody TrabalhoDeConclusao trabalho) {
-        return trabalhoRepository.save(trabalho);
+    public String saveTrabalho(@ModelAttribute TrabalhoDeConclusao trabalho) {
+        Professor professor = professorRepository.findById(trabalho.getOrientador().getId())
+                .orElseThrow(() -> new IllegalArgumentException("Professor inválido"));
+        trabalho.setOrientador(professor); // Define o professor como orientador
+        trabalhoRepository.save(trabalho); // Salva o trabalho
+        return "redirect:/trabalhos";
     }
 
-    // Update an existing Trabalho
-    @PutMapping("/{id}")
-    public ResponseEntity<TrabalhoDeConclusao> updateTrabalho(@PathVariable Integer id, @RequestBody TrabalhoDeConclusao trabalhoDetails) {
-        return trabalhoRepository.findById(id)
-                .map(trabalho -> {
-                    trabalho.setTitulo(trabalhoDetails.getTitulo());
-                    trabalho.setOrientador(trabalhoDetails.getOrientador());
-                    TrabalhoDeConclusao updatedTrabalho = trabalhoRepository.save(trabalho);
-                    return ResponseEntity.ok().body(updatedTrabalho);
-                }).orElse(ResponseEntity.notFound().build());
+    // Carrega a página de edição de trabalho
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable("id") Integer id, Model model) {
+        TrabalhoDeConclusao trabalho = trabalhoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Trabalho inválido:" + id));
+        model.addAttribute("trabalho", trabalho);
+        model.addAttribute("professores", professorRepository.findAll()); // Inclui os professores no formulário de
+                                                                          // edição
+        return "edit"; // Certifique-se de que há um arquivo edit.html no diretório de templates
     }
 
-    // Delete a Trabalho
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteTrabalho(@PathVariable Integer id) {
-        return trabalhoRepository.findById(id)
-                .map(trabalho -> {
-                    trabalhoRepository.delete(trabalho);
-                    return ResponseEntity.ok().build();
-                }).orElse(ResponseEntity.notFound().build());
+    // Atualiza o trabalho
+    @PostMapping("/update/{id}")
+    public String updateTrabalho(@PathVariable("id") Integer id, @ModelAttribute TrabalhoDeConclusao trabalho) {
+        trabalhoRepository.save(trabalho);
+        return "redirect:/trabalhos";
     }
+
+    // Exclui um trabalho
+    @GetMapping("/delete/{id}")
+    public String deleteTrabalho(@PathVariable("id") Integer id) {
+        TrabalhoDeConclusao trabalho = trabalhoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Trabalho inválido:" + id));
+        trabalhoRepository.delete(trabalho);
+        return "redirect:/trabalhos";
+    }
+
 }
