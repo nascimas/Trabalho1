@@ -34,7 +34,7 @@ public class TrabalhoDeConclusaoController {
         model.addAttribute("trabalhos", trabalhoRepository.findAll());
         model.addAttribute("trabalho", new TrabalhoDeConclusao());
         model.addAttribute("professores", professores);
-        return "home"; // Certifique-se de que há um arquivo home.html no diretório de templates
+        return "cadastro-professor"; // Certifique-se de que há um arquivo home.html no diretório de templates
     }
 
     // Salva o novo trabalho
